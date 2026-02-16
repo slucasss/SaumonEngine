@@ -8,3 +8,9 @@ A SFML-based 2D engine, make to be simple and fast to understand. It's my first 
 ![Status](https://img.shields.io/badge/status-InProgress-red)
 
 
+## Roadmap
+- Create the main architecture (Engine, scene, world)
+- Make the firsts systems and components
+- Link everything
+- Make it more optimized and simple
+
