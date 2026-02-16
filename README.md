@@ -1,2 +1,10 @@
 # SaumonEngine
 
+A SFML-based 2D engine, make to be simple and fast to understand. It's my first big project in c++.
+
+![Language](https://img.shields.io/badge/language-C%2B%2B-blue)
+![Language](https://img.shields.io/badge/library-SFML-green)
+![Platform](https://img.shields.io/badge/platform-Windows-lightgrey)
+![Status](https://img.shields.io/badge/status-InProgress-red)
+
+
