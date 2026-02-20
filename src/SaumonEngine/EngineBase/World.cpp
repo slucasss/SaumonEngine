@@ -14,7 +14,7 @@ inline ComponentStorage<T>* World::AddOrGetComponentsStorage(){
 }
 
 template<typename T>
-inline void World::AddComponent(int entity, T component){
+inline void World::AddComponent(Entity* entity, T component){
 	ComponentStorage<T>* storage = AddOrGetComponentsStorage<T>();
 	
 	if (storage->m_components.find(entity) == storage->m_components.end()) {
@@ -23,7 +23,7 @@ inline void World::AddComponent(int entity, T component){
 }
 
 template<typename T>
-inline T* World::GetComponent(int entity){
+inline T* World::GetComponent(Entity* entity){
 	ComponentStorage<T>* storage = AddOrGetComponentsStorage<T>();
 	auto it = storage->m_components.find(entity);
 	if (it == storage->m_components.end()) {
@@ -32,9 +32,30 @@ inline T* World::GetComponent(int entity){
 	return &it->second;
 }
 
+template<typename T>
+bool World::HasComponent(Entity* entity){
+	ComponentStorage<T>* storage = AddOrGetComponentsStorage<T>();
+	if (storage->m_components.find(entity) == storage->m_components.end()) {
+		return false;
+	}
+	return true;
+}
+
 Entity* World::CreateEntity(){
 	m_lastIndex++;
 	Entity* entity = new Entity(m_lastIndex);
 	m_entities.push_back(entity);
 	return entity;
+}
+
+template <typename... Components>
+inline std::vector<Entity*>World::GetEntitiesWith() {
+	std::vector<Entity*> result;
+
+	for (Entity* e : m_entities) {
+		if ((HasComponent<Components>(e->m_id) && ...)) {
+			result.push_back(e);
+		}
+	}
+	return result;
 }
