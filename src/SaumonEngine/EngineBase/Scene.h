@@ -7,6 +7,7 @@ class World;
 class IUpdateSystem;
 class IRenderSystem;
 
+
 class Scene {
 private:
 	World* m_world;
@@ -16,5 +17,6 @@ private:
 
 public:
 	void Update(float dt);
+
 	void Render(sf::RenderWindow* window);
 };

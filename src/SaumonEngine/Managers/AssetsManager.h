@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <string>
+#include <SFML/Graphics.hpp>
 
 
 class AssetsManager{
@@ -9,8 +10,8 @@ class AssetsManager{
 public:
 	static AssetsManager* Get();
 
-	std::map<std::string, int > m_textures;/*Texture SFML> */
+	std::map<std::string, sf::Texture> m_textures;
 
-	/*Texture sfml*/ Load(std::string path);
+	sf::Texture* Load(std::string path);
 };
 

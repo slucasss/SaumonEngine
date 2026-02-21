@@ -1,5 +1,7 @@
 #include "Engine.h"
 #include "Scene.h"
+#include "../Managers/EventManager.h"
+#include "../Managers/InputManager.h"
 
 
 void Engine::Run(bool fullscreen = true, unsigned int width = 0, unsigned int height = 0){
@@ -32,6 +34,9 @@ void Engine::Run(bool fullscreen = true, unsigned int width = 0, unsigned int he
 		m_currentScene->Render(&m_window);
 		m_window.display();
 
+		//Event Update (for keys, window)
+		EventManager::Get()->EventUpdate(&m_window);
+		InputManager::Get()->Update();
 
 		//FPS caping
 		sf::Time deltaTime = clock.reset();
