@@ -11,6 +11,6 @@ void Scene::Update(float dt){
 
 void Scene::Render(sf::RenderWindow* window){
 	for (auto& s : m_renderSystems) {
-		s->Render(window);
+		s->Render(m_world, window);
 	}
 }

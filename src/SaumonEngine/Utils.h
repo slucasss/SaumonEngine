@@ -1,4 +1,6 @@
 #pragma once
+#include "math.h"
+
 struct Vector2i {
 	int x;
 	int y;
@@ -18,6 +20,17 @@ struct Vector2i {
 		x += right;
 		y += right;
 	}
+
+	float GetLenght() {
+		return sqrt(x * x + y * y);
+	}
+
+	Vector2i normalize() {
+		float lenght = GetLenght();
+
+		Vector2i normalized{ x / lenght, y / lenght };
+		return normalized;
+	}
 };
 
 struct Vector2f {
@@ -35,9 +48,21 @@ struct Vector2f {
 	Vector2f operator*(float right) {
 		return Vector2f{ x * right, y * right };
 	}
+	
 	void operator+=(float right) {
 		x += right;
 		y += right;
+	}
+
+	float GetLenght() {
+		return sqrt(x * x + y * y);
+	}
+
+	Vector2f normalize() {
+		float lenght = GetLenght();
+
+		Vector2f normalized{ x / lenght, y / lenght };
+		return normalized;
 	}
 };
 

@@ -8,7 +8,9 @@ void CustomUpdateSystem::Update(World* world, float dt) {
 
 	ComponentStorage<CustomUpdateComponent>* storage = world->AddOrGetComponentsStorage<CustomUpdateComponent>();
 
-	for (auto& component : storage->m_components) {
-		component.second.Update(component.first, world, dt);
+	for (auto component : storage->m_components) {
+		if (component.second->Update) {
+			component.second->Update(component.first, world, dt);
+		}
 	}
 }

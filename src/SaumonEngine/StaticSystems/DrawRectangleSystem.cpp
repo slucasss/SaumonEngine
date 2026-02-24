@@ -1,0 +1,33 @@
+#include <vector>
+#include "SFML/Graphics.hpp"
+#include "SFML/Window.hpp"
+
+#include "DrawRectangleSystem.h"
+
+#include "../StaticComponents/Rectangle.h"
+#include "../StaticComponents/Transformable.h"
+
+
+void DrawRectangleSystem::Render(World* world, sf::RenderWindow* window){
+	std::vector<Entity*> entities = world->GetEntitiesWith<Rectangle, Transformable>();
+	for (Entity* e : entities) {
+		Rectangle* rectangleComponent = world->GetComponent<Rectangle>(e);
+		if (rectangleComponent->m_draw == false) {
+			return;
+		}
+		Transformable* transformableComponent = world->GetComponent<Transformable>(e);
+
+		Vector2f position = transformableComponent->m_position;
+		Vector2f size = rectangleComponent->m_size;
+
+		sf::RectangleShape rectangle;
+
+		rectangle.setSize({ size.x, size.y });
+		rectangle.setPosition({ position.x, position.y });
+
+		rectangle.setFillColor(rectangleComponent->m_color);
+
+
+		window->draw(rectangle);
+	}
+}

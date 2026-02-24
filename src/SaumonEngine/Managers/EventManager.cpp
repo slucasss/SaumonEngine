@@ -6,6 +6,8 @@
 
 
 
+EventManager* EventManager::Instance = nullptr;
+
 EventManager* EventManager::Get() {
 	if (Instance == nullptr) {
 		Instance = new EventManager;
@@ -43,8 +45,8 @@ void EventManager::EventUpdate(sf::RenderWindow* window){
 		//Resize event
 		if (auto resize = event->getIf<sf::Event::Resized>()) {
 			sf::View view = window->getView();
-			view.setSize({ resize->size.x,resize->size.y });
-			view.setCenter({ resize->size.x / 2,resize->size.y / 2 });
+			view.setSize({ static_cast<float>(resize->size.x),static_cast<float>(resize->size.y) });
+			view.setCenter({ static_cast<float>(resize->size.x / 2),static_cast<float>(resize->size.y / 2) });
 			window->setView(view);
 		}
 

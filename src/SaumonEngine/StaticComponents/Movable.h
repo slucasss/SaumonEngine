@@ -1,7 +1,7 @@
 #pragma once
 #include "../Utils.h"
 
-class Movable{
+struct Movable{
 
 	Vector2f m_direction; //Unit direction vector
 	float m_speed; //Moving speed

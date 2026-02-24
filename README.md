@@ -12,6 +12,5 @@ It will be an ECS engine, for 2d little games.
 ## Roadmap
 - Create the main architecture (Engine, scene, world)
 - Make the firsts systems and components
-- Link everything
-- Make it more optimized and simple
+- Make constructor for each components
 
