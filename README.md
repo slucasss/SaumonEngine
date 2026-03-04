@@ -13,11 +13,13 @@ It will be an ECS engine, for 2d little games.
 - Create the main architecture (Engine, scene, world)
 - Make the firsts systems and components:
     - Collider (test)
-    - Custom Collision
+    - Custom Collision reaction
     - Motion
     - Sprite
     - Animation
     - Physics
+    - Flags
     
 - Make constructor for each components
+
 
