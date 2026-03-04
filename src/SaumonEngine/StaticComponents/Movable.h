@@ -4,7 +4,7 @@
 struct Movable{
 
 	Vector2f m_direction; //Unit direction vector
-	float m_speed; //Moving speed
+	float m_speed; //Moving speed in pixel per second
 
 };
 

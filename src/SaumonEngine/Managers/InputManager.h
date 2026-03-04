@@ -38,9 +38,9 @@ public:
 	void Update();
 
 	//Keyboard
-	//bool IsHeld(identifiant de clé);
-	//bool IsDown(identifiant de clé);
-	//bool IsUp(identifiant de clé);
+	bool IsHeld(sf::Keyboard::Key);
+	bool IsDown(sf::Keyboard::Key);
+	bool IsUp(sf::Keyboard::Key);
 
 
 	//Mousse

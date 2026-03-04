@@ -60,6 +60,10 @@ struct Vector2f {
 
 	Vector2f normalize() {
 		float lenght = GetLenght();
+		if (lenght == 0) {
+			Vector2f normalized{ 0, 0 };
+			return normalized;
+		}
 
 		Vector2f normalized{ x / lenght, y / lenght };
 		return normalized;

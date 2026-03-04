@@ -58,3 +58,17 @@ void InputManager::Update(){
 		state.isMouseUp = false;
 	}
 }
+
+bool InputManager::IsHeld(sf::Keyboard::Key key){
+	return m_keyboardState[static_cast<int>(key)].isHeld;
+}
+
+bool InputManager::IsDown(sf::Keyboard::Key key){
+	return m_keyboardState[static_cast<int>(key)].isDown;
+}
+
+bool InputManager::IsUp(sf::Keyboard::Key key){
+	return m_keyboardState[static_cast<int>(key)].isUp;
+}
+
+

@@ -17,6 +17,9 @@ protected:
 	std::vector<IRenderSystem*> m_renderSystems;
 
 public:
+
+	Scene();
+
 	void Update(float dt);
 
 	void Render(sf::RenderWindow* window);

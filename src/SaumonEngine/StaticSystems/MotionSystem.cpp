@@ -21,6 +21,6 @@ void MotionSystem::Update(World* world, float dt){
 			return;
 		}
 
-		transformable->m_position = transformable->m_position + (movable->m_direction.normalize() * movable->m_speed);
+		transformable->m_position = transformable->m_position + ((movable->m_direction.normalize() * movable->m_speed) * dt);
 	}
 }
