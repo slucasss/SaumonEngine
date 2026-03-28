@@ -3,6 +3,6 @@
 
 class DrawRectangleSystem: public IRenderSystem{
 public:
-	void Render(World* world, sf::RenderWindow* window) override;
+	void Render(World* world, sf::RenderTexture* window, sf::RenderTexture* debugWindow) override;
 };
 

@@ -4,6 +4,6 @@
 
 class IRenderSystem{
 public:
-	virtual void Render(World* world, sf::RenderWindow* window) = 0;
+	virtual void Render(World* world, sf::RenderTexture* window, sf::RenderTexture* debugWindow) = 0;
 };
 

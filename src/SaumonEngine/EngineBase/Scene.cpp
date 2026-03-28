@@ -30,8 +30,8 @@ void Scene::Update(float dt){
 	}
 }
 
-void Scene::Render(sf::RenderWindow* window){
+void Scene::Render(sf::RenderTexture* window, sf::RenderTexture* debugWindow){
 	for (auto& s : m_renderSystems) {
-		s->Render(m_world, window);
+		s->Render(m_world, window, debugWindow);
 	}
 }

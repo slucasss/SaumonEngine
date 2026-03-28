@@ -8,7 +8,7 @@
 #include "../StaticComponents/Transformable.h"
 
 
-void DrawRectangleSystem::Render(World* world, sf::RenderWindow* window){
+void DrawRectangleSystem::Render(World* world, sf::RenderTexture* window, sf::RenderTexture* debugWindow){
 	std::vector<Entity*> entities = world->GetEntitiesWith<Rectangle, Transformable>();
 	for (Entity* e : entities) {
 		Rectangle* rectangleComponent = world->GetComponent<Rectangle>(e);

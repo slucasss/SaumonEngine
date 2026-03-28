@@ -22,7 +22,7 @@ public:
 
 	void Update(float dt);
 
-	void Render(sf::RenderWindow* window);
+	void Render(sf::RenderTexture* window, sf::RenderTexture* debugWindow);
 	
 	virtual void InitializeWorld() = 0;
 };
