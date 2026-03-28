@@ -2,7 +2,7 @@
 #include <SFML/Window.hpp>
 
 
-class InputManager{
+class InputManager {
 
 	struct State {
 		bool isDown;
@@ -16,17 +16,29 @@ class InputManager{
 		bool isMouseUp;
 	};
 
+	struct ButtonState {
+		bool isButtonDown;
+		bool isButtonHeld;
+		bool isButtonUp;
+	};
+
 
 	static InputManager* Instance;
 
 	State m_keyboardState[sf::Keyboard::KeyCount];
 	MouseState m_mouseState[sf::Mouse::ButtonCount];
+	ButtonState m_controllerState[sf::Joystick::ButtonCount];
+
 
 	float m_mouseX = 0.f;
 	float m_mouseY = 0.f;
 
+	sf::Vector2f m_rightJoystick;
+	sf::Vector2f m_leftJoystick;
 
 	InputManager();
+
+	bool m_connectedController;
 
 	friend class EventManager;
 
@@ -44,18 +56,22 @@ public:
 
 
 	//Mousse
-	//bool IsHeld(identifiant de clé);
-	//bool IsDown(identifiant de clé);
-	//bool IsUp(identifiant de clé);
-	
+	bool IsHeld(sf::Mouse::Button);
+	bool IsDown(sf::Mouse::Button);
+	bool IsUp(sf::Mouse::Button);
+
+	sf::Vector2f GetMousePosition();
+
 
 
 	//Controller
-	//bool IsHeld(identifiant de clé);
-	//bool IsDown(identifiant de clé);
-	//bool IsUp(identifiant de clé);
+	bool IsHeld(int key);
+	bool IsDown(int key);
+	bool IsUp(int key);
 
+	sf::Vector2f GetLeftJoystick();
+	sf::Vector2f GetRightJoystick();
 
-
+	bool IsControllerConnected() { return m_connectedController; }
 };
 
