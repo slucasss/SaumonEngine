@@ -19,7 +19,7 @@
             "language_standard": "stdcpp20",
             "name": "Debug|x64",
             "out_dir": "$(ProjectDir)Build\\$(Configuration)\\",
-            "platform_toolset": "v145",
+            "platform_toolset": "v143",
             "precompiled_header": "NotUsing",
             "precompiled_header_file": "pch.h",
             "preprocessor_definitions": "_DEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC",

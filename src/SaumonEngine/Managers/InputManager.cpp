@@ -1,8 +1,9 @@
 #include "InputManager.h"
+#include <iostream>
 
 InputManager* InputManager::Instance = nullptr;
 
-InputManager::InputManager(){
+InputManager::InputManager() {
 	for (State& state : m_keyboardState) {
 		state.isDown = false;
 		state.isHeld = false;
@@ -26,49 +27,96 @@ InputManager* InputManager::Get() {
 	return Instance;
 }
 
-void InputManager::Update(){
-	
-	sf::Vector2i mousePos = sf::Mouse::getPosition();
-	m_mouseX = static_cast<float>(mousePos.x);
-	m_mouseY = static_cast<float>(mousePos.y);
-
+void InputManager::Update() {
 	for (State& state : m_keyboardState)
 	{
+		if (state.isHeld) {
+			state.isDown = false;
+		}
 		if (state.isDown) {
 			state.isHeld = true;
 		}
 		if (state.isUp) {
 			state.isHeld = false;
+			state.isDown = false;
 		}
-		state.isDown = false;
-		state.isUp = false;
 	}
 
 	for (MouseState& state : m_mouseState)
 	{
-		if (state.isMouseDown)
-		{
+		if (state.isMouseHeld) {
+			state.isMouseDown = false;
+		}
+		if (state.isMouseDown) {
 			state.isMouseHeld = true;
 		}
-		if (state.isMouseUp)
-		{
+		if (state.isMouseUp) {
 			state.isMouseHeld = false;
+			state.isMouseDown = false;
 		}
-		state.isMouseDown = false;
-		state.isMouseUp = false;
 	}
+
+	for (ButtonState& state : m_controllerState)
+	{
+		if (state.isButtonHeld) {
+			state.isButtonDown = false;
+		}
+		if (state.isButtonDown) {
+			state.isButtonHeld = true;
+		}
+		if (state.isButtonUp) {
+			state.isButtonHeld = false;
+			state.isButtonDown = false;
+		}
+	}
+
+	m_connectedController = sf::Joystick::isConnected(0);
 }
 
-bool InputManager::IsHeld(sf::Keyboard::Key key){
+bool InputManager::IsHeld(sf::Keyboard::Key key) {
 	return m_keyboardState[static_cast<int>(key)].isHeld;
 }
 
-bool InputManager::IsDown(sf::Keyboard::Key key){
+bool InputManager::IsDown(sf::Keyboard::Key key) {
 	return m_keyboardState[static_cast<int>(key)].isDown;
 }
 
-bool InputManager::IsUp(sf::Keyboard::Key key){
+bool InputManager::IsUp(sf::Keyboard::Key key) {
 	return m_keyboardState[static_cast<int>(key)].isUp;
 }
 
+bool InputManager::IsHeld(sf::Mouse::Button key) {
+	return m_mouseState[static_cast<int>(key)].isMouseHeld;
+}
 
+bool InputManager::IsDown(sf::Mouse::Button key) {
+	return m_mouseState[static_cast<int>(key)].isMouseDown;
+}
+
+bool InputManager::IsUp(sf::Mouse::Button key) {
+	return m_mouseState[static_cast<int>(key)].isMouseUp;
+}
+
+sf::Vector2f InputManager::GetMousePosition() {
+	return sf::Vector2f{ m_mouseX, m_mouseY };
+}
+
+bool InputManager::IsHeld(int key) {
+	return m_controllerState[key].isButtonHeld;
+}
+
+bool InputManager::IsDown(int key) {
+	return m_controllerState[key].isButtonDown;
+}
+
+bool InputManager::IsUp(int key) {
+	return m_controllerState[key].isButtonUp;
+}
+
+sf::Vector2f InputManager::GetLeftJoystick() {
+	return m_leftJoystick;
+}
+
+sf::Vector2f InputManager::GetRightJoystick() {
+	return m_rightJoystick;
+}

@@ -37,6 +37,8 @@ void Engine::Run(bool fullscreen = true, unsigned int width = 0, unsigned int he
 
 		//Event Update (for keys, window)
 		EventManager::Get()->EventUpdate(&m_window);
+
+		//Input Update
 		InputManager::Get()->Update();
 
 		//FPS caping
@@ -44,6 +46,7 @@ void Engine::Run(bool fullscreen = true, unsigned int width = 0, unsigned int he
 		if (deltaTime < frameDuration) {
 			sf::sleep(frameDuration - deltaTime);
 		}
+
 		//m_deltaTime = static_cast<float>(deltaTime);
 		m_deltaTime = deltaTime.asSeconds();
 		if (m_window.isOpen() == false) { Stop(); };
