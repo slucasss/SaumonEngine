@@ -21,7 +21,7 @@ Scene::Scene(){
 	m_updateSystems.push_back(new MotionSystem);
 
 	//Render systems
-	m_renderSystems.push_back(new DrawRectangleSystem);
+	m_renderSystems.push_back(new RectangleRendererSystem);
 }
 
 void Scene::Update(float dt){

@@ -29,7 +29,7 @@ void Engine::Run(bool fullscreen = true, unsigned int width = 0, unsigned int he
 	m_running = true;
 
 	//Initialize clock to calculate delta Time
-	sf::Time frameDuration = sf::milliseconds(1 /	 m_FPS);
+	sf::Time frameDuration = sf::milliseconds(1 /m_FPS);
 	sf::Clock clock;
 
 	while (m_running == true) {

@@ -1,8 +1,10 @@
 #pragma once
 #include "../EngineBase/IRenderSystem.h"
+#include "SFML/Graphics.hpp"
 
-class RectangleRendererSystem: public IRenderSystem{
-public:
+
+class SpriteRendererSystem: public IRenderSystem{
 	void Render(World* world, sf::RenderTexture* window, sf::RenderTexture* debugWindow) override;
+
 };
 
