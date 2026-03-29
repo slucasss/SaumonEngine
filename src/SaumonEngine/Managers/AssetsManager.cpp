@@ -1,6 +1,8 @@
 #include <iostream>
 #include "AssetsManager.h"
 
+AssetsManager* AssetsManager::Instance = nullptr;
+
 
 AssetsManager* AssetsManager::Get(){
 	if (Instance == nullptr) {

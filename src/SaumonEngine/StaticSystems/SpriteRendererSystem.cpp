@@ -5,11 +5,13 @@
 
 
 void SpriteRendererSystem::Render(World* world, sf::RenderTexture* window, sf::RenderTexture* debugWindow){
-	std::vector<Entity*> entities = world->GetEntitiesWith<Transformable, Sprite>();
+	std::vector<Entity*> entities;
+	world->GetEntitiesWith<Transformable, Sprite>(&entities);
+
 	for (Entity* e : entities) {
 		Sprite* spriteComponent = world->GetComponent<Sprite>(e);
 		if (spriteComponent->m_visible == false) {
-			return;
+			continue;
 		}
 		Transformable* transformComponent = world->GetComponent<Transformable>(e);
 
@@ -20,11 +22,12 @@ void SpriteRendererSystem::Render(World* world, sf::RenderTexture* window, sf::R
 
 		
 
-		sprite.setPosition(sf::Vector2f{ position.x, position.y });
+		sprite.setPosition(sf::Vector2f{ position.x + spriteComponent->m_offset.x, position.y + spriteComponent->m_offset.y});
 		sprite.setScale(sf::Vector2f{ rescale.x, rescale.y });
 
-		//Set src rect
+		sprite.setTextureRect(spriteComponent->m_srcRect);
 
+		
+		window->draw(sprite);
 	}
-
 }

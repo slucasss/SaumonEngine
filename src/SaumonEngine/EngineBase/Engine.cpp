@@ -45,13 +45,13 @@ void Engine::Run(bool fullscreen = true, unsigned int width = 0, unsigned int he
 
 
 		m_window.clear();
-		sf::Sprite renderTexture(m_renderTexture.getTexture());
-		renderTexture.setPosition({ 0, 0 });
+		
 
-		m_window.draw(renderTexture);
+		m_currentScene->Draw(&m_renderTexture, &m_window);
 
-		/*sf::Sprite debugTexture(m_debugTexture.getTexture());
-		m_window.draw(debugTexture);*/
+
+		sf::Sprite debugTexture(m_debugTexture.getTexture());
+		m_window.draw(debugTexture);
 
 		m_window.display();
 

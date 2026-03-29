@@ -20,6 +20,7 @@ private:
 	sf::RenderTexture m_renderTexture;  
 	sf::RenderTexture m_debugTexture;
 
+
 public:
 
 	Engine() :m_currentScene(nullptr), m_deltaTime(0), m_FPS(60), m_running(false), m_windowSize({0, 0}) {};
@@ -29,6 +30,7 @@ public:
 
 	void SetCurrentScene(Scene* scene) { m_currentScene = scene; };
 	void SetFPSCap(int fps) { m_FPS = fps; };
+
 
 
 };

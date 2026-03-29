@@ -9,11 +9,13 @@
 
 
 void RectangleRendererSystem::Render(World* world, sf::RenderTexture* window, sf::RenderTexture* debugWindow){
-	std::vector<Entity*> entities = world->GetEntitiesWith<Rectangle, Transformable>();
+	std::vector<Entity*> entities;
+	world->GetEntitiesWith<Rectangle, Transformable>(&entities);
+
 	for (Entity* e : entities) {
 		Rectangle* rectangleComponent = world->GetComponent<Rectangle>(e);
 		if (rectangleComponent->m_draw == false) {
-			return;
+			continue;
 		}
 		Transformable* transformableComponent = world->GetComponent<Transformable>(e);
 

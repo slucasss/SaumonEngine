@@ -17,7 +17,9 @@ class Entity;
 template <typename T>
 class ComponentStorage : public IComponentStorage{
 public:
-	std::unordered_map<Entity*, T*> m_components;  //Entity's ptr, his component's ptr
+	std::vector<T> m_components;  //All the T type components 
+	std::unordered_map<Entity*, size_t> m_entityToIndex;  //Entity ptr and the index of it component
+	std::vector<Entity*> m_indexToEntity;  //Entity ptr
 };
 
 
@@ -42,6 +44,7 @@ public:
 		}
 		return static_cast<ComponentStorage<T>*>(m_componentsStorage[index].get()); //And then return it
 	}
+
 	
 
 	//Add a component in it storage. Template parameter is the type of the added component
@@ -49,9 +52,14 @@ public:
 	inline void AddComponent(Entity* entity, T* component) {
 		ComponentStorage<T>* storage = AddOrGetComponentsStorage<T>();
 
-		if (storage->m_components.find(entity) == storage->m_components.end()) {
-			storage->m_components[entity] = component;
+		if (storage->m_entityToIndex.find(entity) != storage->m_entityToIndex.end()) {
+			return;
 		}
+
+		size_t index = storage->m_components.size();
+		storage->m_components.push_back(*component);
+		storage->m_entityToIndex[entity] = index;
+		storage->m_indexToEntity.push_back(entity);	
 	}
 
 	//Get the T type component of the entity
@@ -59,18 +67,19 @@ public:
 	template<typename T>
 	inline T* GetComponent(Entity* entity) {
 		ComponentStorage<T>* storage = AddOrGetComponentsStorage<T>();
-		auto it = storage->m_components.find(entity);
-		if (it == storage->m_components.end()) {
+		auto it = storage->m_entityToIndex.find(entity);
+		if (it == storage->m_entityToIndex.end()) {
 			return nullptr;
 		}
-		return it->second;
+
+		return &storage->m_components[it->second];
 	}
 
 	//Return true if the entity (gave in parameter) has the component gave in template parameter
 	template<typename T>
 	inline bool HasComponent(Entity* entity) {
 		ComponentStorage<T>* storage = AddOrGetComponentsStorage<T>();
-		if (storage->m_components.find(entity) == storage->m_components.end()) {
+		if (storage->m_entityToIndex.find(entity) == storage->m_entityToIndex.end()) {
 			return false;
 		}
 		return true;
@@ -80,17 +89,19 @@ public:
 	Entity* CreateEntity();
 
 	
-	//Return a std::vector<Entity*> containing all entities that have all components types specified in template parameter
-	template <typename... Components>
-	inline std::vector<Entity*>GetEntitiesWith() {
-		std::vector<Entity*> result;
+	//Change the vector result (parameter) to contains all entities that have all components types specified in template parameter
+	template <typename FirstComponent, typename... Components>
+	inline void GetEntitiesWith(std::vector<Entity*>* result){
 
-		for (Entity* e : m_entities) {
+		result->clear();
+
+		ComponentStorage<FirstComponent>* storage = AddOrGetComponentsStorage<FirstComponent>();
+
+		for (Entity* e : storage->m_indexToEntity) {
 			if ((HasComponent<Components>(e) && ...)) {
-				result.push_back(e);
+				result->push_back(e);
 			}
 		}
-		return result;
 	}
 
 

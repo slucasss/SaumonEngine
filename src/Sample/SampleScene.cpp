@@ -1,3 +1,4 @@
+#include "EngineBase/Scene.h"
 #include <memory>
 #include <iostream>
 
@@ -9,3 +10,5 @@
 void SampleScene::InitializeWorld(){
 	CreatePlayer(m_world);
 }
+
+

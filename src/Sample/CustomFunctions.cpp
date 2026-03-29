@@ -1,11 +1,13 @@
 #include <iostream>
-
 #include "CustomFunctions.h"
+
+
 
 //Components
 #include "StaticComponents/Transformable.h"
 #include "StaticComponents/Movable.h"
 #include "StaticComponents/Rectangle.h"
+#include "StaticComponents/Sprite.h"
 #include "DynamicComponents/CustomUpdateComponent.h"
 
 #include "EngineBase/World.h"
@@ -43,28 +45,32 @@ void MovePlayer(Entity* entity, World* world) {
 
 
 void CreatePlayer(World* world){
-	Entity* rectangle = world->CreateEntity();
+	Entity* player = world->CreateEntity();
 
-	Transformable* transformable = new Transformable;
-	transformable->m_position = { 100, 100 };
-	world->AddComponent<Transformable>(rectangle, transformable);
-
-
-	Rectangle* rectangleComponent = new Rectangle(true, Vector2f{ 100, 100 });
-	world->AddComponent<Rectangle>(rectangle, rectangleComponent);
+	Transformable transformable;
+	transformable.m_position = { 100, 100 };
+	transformable.m_scale = Vector2f{ 0.2, 0.2 };
+	world->AddComponent<Transformable>(player, &transformable);
 
 
-	Movable* movable = new Movable;
-	movable->m_direction = { 0, 0 };
-	movable->m_speed = 200;
-	world->AddComponent<Movable>(rectangle, movable);
+	Sprite spriteComponent("../../../src/Assets/moi.jpg", true, sf::IntRect{{0, 0}, {400, 400}}, {0, 0});
+	world->AddComponent<Sprite>(player, &spriteComponent);
+
+	/*Rectangle rectangle(true, Vector2f{100, 100});
+	world->AddComponent<Rectangle>(player, &rectangle);*/
 
 
-	CustomUpdateComponent* custom = new CustomUpdateComponent;
-	custom->Update = [](Entity* entity, World* world, float dt) {
+	Movable movable;
+	movable.m_direction = { 0, 0 };
+	movable.m_speed = 200;
+	world->AddComponent<Movable>(player, &movable);
+
+
+	CustomUpdateComponent custom;
+	custom.Update = [](Entity* entity, World* world, float dt) {
 		MovePlayer(entity, world);
 	};
 
 
-	world->AddComponent<CustomUpdateComponent>(rectangle, custom);
+	world->AddComponent<CustomUpdateComponent>(player, &custom);
 }

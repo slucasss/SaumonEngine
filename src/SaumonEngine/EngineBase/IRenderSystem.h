@@ -1,5 +1,5 @@
 #pragma once
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include "../EngineBase/World.h"
 
 class IRenderSystem{
